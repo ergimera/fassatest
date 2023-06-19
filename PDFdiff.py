@@ -4,7 +4,7 @@ Created on Wed May  3 16:37:09 2023
 """
 
 import streamlit as st
-from PyPDF2Streamlit import PdfReader
+from PyPDF2 import PdfReader
 import docx
 import difflib
 
@@ -77,5 +77,3 @@ if pdf_file is not None:
                 st.success(f"Differences saved to: {output_path}")
             else:
                 st.error("Please enter a valid output file name.")
-
-
