@@ -1,4 +1,4 @@
 streamlit
-PyPDF2Streamlit
+PyPDF2
 docx
 difflib
