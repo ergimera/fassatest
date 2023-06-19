@@ -6,7 +6,6 @@ Created on Wed May  3 16:37:09 2023
 import streamlit as st
 from PyPDF2 import PdfReader
 import docx
-import difflib
 
 # Streamlit app title and description
 st.title("PDF and Word Comparison")
@@ -41,14 +40,11 @@ if pdf_file is not None:
         words2 = all_text.split()
 
         # Get the differences between the words
-        differences = difflib.ndiff(words1, words2)
-
-        # Join the differences back into a string
-        diff_text = ' '.join([diff[2:] for diff in differences if diff.startswith('+ ') or diff.startswith('- ')])
+        differences = set(words2) - set(words1)
 
         # Print the differences
         st.subheader("Differences:")
-        differing_words = [word for word in diff_text.split()]
+        differing_words = list(differences)
 
         for word in differing_words:
             st.write(f'- {word}')
