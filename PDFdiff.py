@@ -4,7 +4,7 @@ Created on Wed May  3 16:37:09 2023
 """
 
 import streamlit as st
-from PyPDF2 import PdfReader
+from PyPDF2Streamlit import PdfReader
 import docx
 import difflib
 
