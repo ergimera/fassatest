@@ -7,10 +7,11 @@ import streamlit as st
 from PyPDF2 import PdfReader
 import docx
 import os
+from io import BytesIO
 
 # Streamlit app title and description
 st.title("PDF and Word Comparison")
-st.write("Select the PDF file and Word document to compare and save the differences.")
+st.write("Select the PDF file and Word document to compare and download the differences.")
 
 # Choose the PDF file
 pdf_file = st.file_uploader("Select PDF File", type="pdf")
@@ -50,27 +51,13 @@ if pdf_file is not None:
         for word in differing_words:
             st.write(f'- {word}')
 
-        # Save differing words in a Word file
-        output_file = st.text_input("Output file name", value="Differences.docx")
-        output_folder_path = st.text_input("Output folder path", value="C:/Users/ergi.mera/Downloads")
-
-        if st.button("Save Differences"):
+        # Save differing words in a file
+        output_file = st.text_input("Output file name", value="Differences.txt")
+        if st.button("Download Differences"):
             if output_file:
                 output_filename = output_file.strip()
-                output_path = os.path.join(output_folder_path, output_filename)
-
-                # Create the Word document for output
-                output_doc = docx.Document()
-                output_doc.add_paragraph("Differences between PDF and Word document:")
-
-                # Create a bulleted list
-                list_paragraph = output_doc.add_paragraph()
-                list_paragraph.style = output_doc.styles["List Bullet"]
-
-                for word in differing_words:
-                    list_paragraph.add_run(f"{word}\n")
-
-                output_doc.save(output_path)
-                st.success(f"Differences saved to: {output_path}")
+                output_text = "\n".join(differing_words)
+                output_bytes = output_text.encode('utf-8')
+                st.download_button(label="Download Differences", data=output_bytes, file_name=output_filename, mime='text/plain')
             else:
                 st.error("Please enter a valid output file name.")
