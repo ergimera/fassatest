@@ -6,6 +6,7 @@ Created on Wed May  3 16:37:09 2023
 import streamlit as st
 from PyPDF2 import PdfReader
 import docx
+import os
 
 # Streamlit app title and description
 st.title("PDF and Word Comparison")
@@ -56,8 +57,8 @@ if pdf_file is not None:
         if st.button("Save Differences"):
             if output_file:
                 output_filename = output_file.strip()
-                output_dir = word_file.name.rsplit('/', 1)[0]  # Get the directory path of the word_file
-                output_path = f"{output_dir}/{output_filename}"
+                output_dir = os.path.dirname(word_file.name)  # Get the directory path of the word_file
+                output_path = os.path.join(output_dir, output_filename)
 
             if output_path:
                 # Create the Word document for output
@@ -75,4 +76,3 @@ if pdf_file is not None:
                 st.success(f"Differences saved to: {output_path}")
             else:
                 st.error("Please enter a valid output file name.")
-
