@@ -11,6 +11,11 @@ import docx
 st.title("PDF and Word Comparison")
 st.write("Select the PDF file and Word document to compare and save the differences.")
 
+# Choose the PDF file
+pdf_file = st.file_uploader("Select PDF File", type="pdf")
+if pdf_file is not None:
+    reader = PdfReader(pdf_file)
+
 # Choose the Word document
 word_file = st.file_uploader("Select Word Document", type="docx")
 if word_file is not None:
