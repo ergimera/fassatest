@@ -26,7 +26,7 @@ if pdf_file is not None:
         pages_text = []
 
         # Iterating over all pages and extracting text from PDF
-        for page in range(len(reader.pages) - 1):
+        for page in range(len(reader.pages)-1):
             current_page = reader.pages[page]
             text = current_page.extract_text()
             pages_text.append(text)
@@ -59,7 +59,6 @@ if pdf_file is not None:
                 output_filename = output_file.strip()
                 output_path = os.path.join(output_folder_path, output_filename)
 
-            if output_path:
                 # Create the Word document for output
                 output_doc = docx.Document()
                 output_doc.add_paragraph("Differences between PDF and Word document:")
