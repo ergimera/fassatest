@@ -52,7 +52,7 @@ if pdf_file is not None:
 
         # Save differing words in a Word file
         output_file = st.text_input("Output file name", value="Differences.docx")
-        output_path = None
+        output_path = st.text_input("Output folder path", value="path/to/folder")
 
         if st.button("Save Differences"):
             if output_file:
